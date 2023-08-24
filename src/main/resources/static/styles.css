@@ -1,0 +1,8 @@
+.image-container {
+    display: flex; /* Utilizamos flexbox para alinear los elementos en fila */
+    align-items: center; /* Centramos verticalmente los elementos en el contenedor */
+}
+
+.image-container img {
+    margin-right: 10px; /* Agregamos un margen a la derecha del elemento de la imagen */
+}

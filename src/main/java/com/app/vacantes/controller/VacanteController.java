@@ -66,7 +66,12 @@ public class VacanteController {
 
     //endpoint para guardar la nueva vacante
     @PostMapping("/save")
-    public String saveVacante(@ModelAttribute("vacante") VacanteModell vacante, @RequestParam("archivoImagen")MultipartFile archivo){
+    public String saveVacante(@ModelAttribute("vacante") VacanteModell vacante,
+                              @RequestParam("archivoImagen")MultipartFile archivo,
+                              @RequestParam("categoriaselect") String idcategoria){
+
+        int id=Integer.parseInt(idcategoria);
+
 
         if(!archivo.isEmpty()){
             try{
@@ -77,29 +82,54 @@ public class VacanteController {
                 //Se obtiene el nombre de la imagen para guardarla en la base de datos
                 String nombreImagen=archivo.getOriginalFilename();
                 vacante.setImagen(nombreImagen);
-
-                vacanteService.saveVacante(vacante);
             } catch (Exception e) {
+                System.out.println(e.getMessage());
                 throw new RuntimeException(e);
             }
         }
+        System.out.println("la imagen que traigo por defecto es: "+vacante.getImagen());
+
+
+        //Se manda a buscar la categoria que selccionó el usuario
+        CategoriaModell categoria=categoriaService.findById(id);
+        //Se asigna la categoria a la vacante
+        vacante.setCategoria(categoria);
+
+        System.out.println("El id que me esta llegando antes de guardar es: "+vacante.getIdvacante());
+        System.out.println("Y la categoria que llega es: "+vacante.getCategoria());
+
+        //Se manda a guardar
+        vacanteService.saveVacante(vacante);
+
         return "redirect:/vacantes/index";
+
     }
 
 
     //endpoint para mostrar formulario de actualización
     @GetMapping("/update/{id}")
-    public String findByIdVacante(@PathVariable("id") int id,Model model){
+    public String updateVacante(@PathVariable("id") int id,Model model){
         VacanteModell vacanteFound=vacanteService.findById(id);
+
         List<CategoriaModell> listCategorias=categoriaService.listAllCategorias();
-
-
 
         model.addAttribute("vacante",vacanteFound);
         model.addAttribute("listCategorias",listCategorias);
 
+        System.out.println("El nombre de la vacante a actualizar es: " + vacanteFound.getNombre());
+        System.out.println("Su categoria es :"+vacanteFound.getCategoria().getNombre());
+        System.out.println("El nombre de la imagen que estoy mandando a la vista es: "+vacanteFound.getImagen());
 
         return "formVacante";
+    }
+
+    //endpoint para eliminar un registro existente
+    @GetMapping("/delete/{id}")
+    public String deleteVacante(@PathVariable("id") int id){
+        vacanteService.deleteById(id);
+        System.out.println("El registro se a eliminado correctamente");
+
+        return "redirect:/vacantes/index";
     }
 
 }

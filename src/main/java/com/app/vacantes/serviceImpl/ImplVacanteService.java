@@ -30,4 +30,9 @@ public class ImplVacanteService implements InterfaceVacanteService {
     public VacanteModell findById(Integer id) {
         return vacanteRepo.findById(id).get();
     }
+
+    @Override
+    public void deleteById(Integer id) {
+        vacanteRepo.deleteById(id);
+    }
 }

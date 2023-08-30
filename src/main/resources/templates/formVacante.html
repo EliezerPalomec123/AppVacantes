@@ -33,7 +33,7 @@
               <a class="nav-link active" href="#">Inicio</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Menu 1</a>
+              <a class="nav-link" th:href="@{/categorias/index}">Categorias</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Menu 2</a>
@@ -54,17 +54,26 @@
           <div class="card-body">
             <!--Se especifica el objeto con el que se trabajará-->
             <form th:action="@{/vacantes/save}" method="post" th:object="${vacante}" enctype="multipart/form-data">
+              <!--input en donde estará el id de la vacante a actualizar-->
+              <input class="form-control" type="hidden" th:fiel="*{idvacante}" th:value="${vacante.idvacante}" name="idvacante">
+              <!--input en donde estará el id de la categoria-->
+              <input class="form-control" type="hidden" th:fiel="*{categoria}" th:value="${vacante.categoria}" name="id">
+
+              <!--input en donde estará el nombre de la imagen-->
+              <input class="form-control" type="hidden" th:fiel="*{imagen}" th:value="${vacante.imagen}" name="imagen">
+
+
               <div class="row">
                 <div class="col-md-3"> 
                   <div class="form-group">
                     <label for="nombre">Nombre</label>
-                    <input type="text" class="form-control" id="nombre" th:field="*{nombre}" th:value="${vacante.nombre}" name="nombre" placeholder="Titulo de la oferta de trabajo" required="required">
+                    <input type="text" class="form-control" id="nombre" th:field="*{nombre}" th:value="${vacante.nombre}"  placeholder="Titulo de la oferta de trabajo" required="required">
                   </div>
                 </div>
                 <div class="col-md-9"> 
                   <div class="form-group">
                     <label for="descripcion">Descripción</label>
-                    <input type="text" class="form-control" id="descripcion" th:field="*{descripcion}" th:value="${vacante.descripcion}" name="descripcion" placeholder="Breve descripcion de la oferta de trabajo" required="required">
+                    <input type="text" class="form-control" id="descripcion" th:field="*{descripcion}" th:value="${vacante.descripcion}"  placeholder="Breve descripcion de la oferta de trabajo" required="required">
                   </div> 
                 </div>    
               </div>    
@@ -72,12 +81,10 @@
                 <div class="col-md-3"> 
                   <div class="form-group">
                     <label for="categoria">Categoría</label>
-                    <select class="form-control" name="categoria" id="categoria">
-                      <th:block th:each="categoria: ${listCategorias}">
-                        <option th:text="${categoria.nombre}" th:value="${categoria.id}">
-
+                    <select class="form-control" name="categoriaselect" id="categoria">
+                        <option th:each="categoriaItem: ${listCategorias}" th:value="${categoriaItem.id}" th:text="${categoriaItem.nombre}"
+                                th:selected="${vacante.categoria != null and categoriaItem.id == vacante.categoria.id}">
                         </option>
-                      </th:block>
                     </select>
                   </div>
                 </div>
@@ -100,11 +107,11 @@
                 </div>
                 <div class="col-md-3"> 
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="destacado" id="destacado" th:field="*{destacado}"  value="1" checked="checked">
+                    <input class="form-check-input" type="radio" name="destacado" id="destacado" th:field="*{destacado}"  value="si" th:checked="${vacante.destacado==null or vacante.destacado=='si'}" required>
                     <label class="form-check-label" for="destacado">Destacado</label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="destacado" id="nodestacado" th:field="*{destacado}"  value="0">
+                    <input class="form-check-input" type="radio" name="destacado" id="nodestacado" th:field="*{destacado}"  value="no" th:checked="${vacante.destacado=='no'}">
                     <label class="form-check-label" for="nodestacado">No Destacado</label>
                   </div>
                 </div>
@@ -120,7 +127,8 @@
                   <div class="form-group">
                     <label for="archivoImagen">Imagen</label>
                     <div class="image-container">
-                      <img th:src="@{'/images/vacante.jpg'}" alt="Imagen seleccionada" width="200" height="200">
+                      <img th:if="${vacante.imagen==null}" th:src="@{'/images/vacante.jpg'}" alt="Imagen seleccionada" width="200" height="200">
+                      <img th:unless="${vacante.imagen==null}" th:src="@{'/images/'}+${vacante.imagen}" alt="Imagen seleccionada" width="200" height="200">
                       <input type="file" class="form-control-file" name="archivoImagen" id="archivoImagen">
                     </div>
                   </div>

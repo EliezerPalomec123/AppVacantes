@@ -32,4 +32,9 @@ public class ImplCategoriaService implements InterfaceCategoriaService {
     public CategoriaModell findById(Integer id) {
         return categoriaRepo.findById(id).get();
     }
+
+    @Override
+    public void deleteCategoria(Integer id) {
+        categoriaRepo.deleteById(id);
+    }
 }

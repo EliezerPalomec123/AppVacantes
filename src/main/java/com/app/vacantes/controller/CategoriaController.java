@@ -4,10 +4,7 @@ import com.app.vacantes.modell.CategoriaModell;
 import com.app.vacantes.service.InterfaceCategoriaService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,6 +19,7 @@ public class CategoriaController {
         this.categoriaServi = categoriaServi;
     }
 
+    //endpoint para listar todas las categorías exixtentes
     @GetMapping("/index")
     public String listAllCategorias(Model model){
         List<CategoriaModell> listCategorias=categoriaServi.listAllCategorias();
@@ -31,6 +29,7 @@ public class CategoriaController {
         return "listCategorias";
     }
 
+    //endpoint para mostrar formulario de creación
     @GetMapping("/new")
     public String newCategoria(Model model){
         CategoriaModell newCategoria=new CategoriaModell();
@@ -40,9 +39,28 @@ public class CategoriaController {
         return "formCategoria";
     }
 
+    //endpoint para guardar una nueva categoria
     @PostMapping("/save")
     public String saveCategoria(@ModelAttribute("categoria") CategoriaModell categoria){
         categoriaServi.saveCategoria(categoria);
+
+        return "redirect:/categorias/index";
+    }
+
+    //endpoint para mostrar formulario de actualización
+    @GetMapping("/update/{id}")
+    public String updateCategoria(@PathVariable("id") int id,Model model){
+        CategoriaModell categoriaFound=categoriaServi.findById(id);
+
+        model.addAttribute("categoria",categoriaFound);
+
+        return "formCategoria";
+    }
+
+    //endpoint para eliminar una categoría existente
+    @GetMapping("/delete/{id}")
+    public String deleteCategoria(@PathVariable("id") int id){
+        categoriaServi.deleteCategoria(id);
 
         return "redirect:/categorias/index";
     }

@@ -52,5 +52,6 @@ public class VacanteModell {
     private String detalles;
 
     @ManyToOne
+    @JoinColumn(name = "categoriaidfk")
     private CategoriaModell categoria;
 }

@@ -11,4 +11,6 @@ public interface InterfaceCategoriaService {
     CategoriaModell saveCategoria(CategoriaModell categoria);
 
     CategoriaModell findById(Integer id);
+
+    void deleteCategoria(Integer id);
 }

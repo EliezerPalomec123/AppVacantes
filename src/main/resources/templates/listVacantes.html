@@ -33,7 +33,7 @@
               <a class="nav-link active" href="#">Inicio</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Menu 1</a>
+              <a class="nav-link" th:href="@{/categorias/index}">Categorias</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Menu 2</a>
@@ -74,8 +74,8 @@
                   <td th:text="${vacante.status}"></td>
                   <td th:text="${vacante.destacado}"></td>
                   <td>
-                    <a href="#" class="btn btn-success btn-sm" role="button" title="Editar el registro."><i class="fas fa-pencil-alt" aria-hidden="true"></i></a>
-                    <a href="#" onclick="return confirm('¿Estas seguro?')" class="btn btn-success btn-sm" role="button" title="Eliminar el registro."><i class="fas fa-trash" aria-hidden="true"></i></a>
+                    <a th:href="@{'/vacantes/update/' + ${vacante.idvacante}}" class="btn btn-success btn-sm" role="button" title="Editar el registro."><i class="fas fa-pencil-alt" aria-hidden="true"></i></a>
+                    <a th:href="@{'/vacantes/delete/' + ${vacante.idvacante}}" onclick="return confirm('¿Estas seguro?')" class="btn btn-success btn-sm" role="button" title="Eliminar el registro."><i class="fas fa-trash" aria-hidden="true"></i></a>
                   </td>
                 </tr>
               </tbody>

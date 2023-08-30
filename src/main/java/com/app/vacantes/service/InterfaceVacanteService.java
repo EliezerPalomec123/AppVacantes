@@ -11,4 +11,6 @@ public interface InterfaceVacanteService {
     VacanteModell saveVacante(VacanteModell vacante);
 
     VacanteModell findById(Integer id);
+
+    void deleteById(Integer id);
 }

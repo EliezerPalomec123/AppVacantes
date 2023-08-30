@@ -50,6 +50,9 @@
           <h4 class="card-header"><strong>Datos de la categoría</strong></h4>              
           <div class="card-body">
             <form th:action="@{/categorias/save}" method="post" th:object="${categoria}">
+              <!--input que contendrá el id de la categoría oculto-->
+              <input class="form-control" type="hidden" th:fiel="*{id}" th:value="${categoria.id}" name="id">
+
               <div class="row">
                 <div class="col-md-6"> 
                   <div class="form-group">

@@ -16,6 +16,33 @@
     <link href="bootstrap/css/jumbotron.css" rel="stylesheet">
     <link href="bootstrap/css/sticky-footer-navbar.css" rel="stylesheet">
     <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" >
+
+    <script>
+      function validarLetras(inputElement) {
+        var valorInput = inputElement.value;
+        var soloLetras = /^[A-Za-z]+$/;
+
+        if (!soloLetras.test(valorInput)) {
+          inputElement.value = valorInput.replace(/[^A-Za-z]+/g, '');
+        }
+      }
+
+      function validarNumerosDecimales(inputElement) {
+        var valorInput = inputElement.value;
+
+        valorInput = valorInput.replace(/,/g, '.');
+
+        valorInput = valorInput.replace(/[^0-9.]+/g, '');
+
+        if (!isNaN(parseFloat(valorInput)) || valorInput === '') {
+          inputElement.value = valorInput;
+        } else {
+          inputElement.value = inputElement.dataset.previousValue || '';
+        }
+
+        inputElement.dataset.previousValue = inputElement.value;
+      }
+    </script>
   </head>
 
   <body>
@@ -67,13 +94,13 @@
                 <div class="col-md-3"> 
                   <div class="form-group">
                     <label for="nombre">Nombre</label>
-                    <input type="text" class="form-control" id="nombre" th:field="*{nombre}" th:value="${vacante.nombre}"  placeholder="Titulo de la oferta de trabajo" required="required">
+                    <input type="text" class="form-control" id="nombre" th:field="*{nombre}" th:value="${vacante.nombre}" oninput="validarLetras(this)" placeholder="Titulo de la oferta de trabajo" required="required">
                   </div>
                 </div>
                 <div class="col-md-9"> 
                   <div class="form-group">
                     <label for="descripcion">Descripción</label>
-                    <input type="text" class="form-control" id="descripcion" th:field="*{descripcion}" th:value="${vacante.descripcion}"  placeholder="Breve descripcion de la oferta de trabajo" required="required">
+                    <input type="text" class="form-control" id="descripcion" th:field="*{descripcion}" th:value="${vacante.descripcion}" oninput="validarLetras(this)" placeholder="Breve descripcion de la oferta de trabajo" required="required">
                   </div> 
                 </div>    
               </div>    
@@ -120,7 +147,7 @@
                 <div class="col-md-3"> 
                   <div class="form-group">
                     <label for="salario">Salario Ofrecido (Aprox)</label>
-                    <input type="text" class="form-control" name="salario" id="salario" th:field="*{salario}" th:value="${vacante.salario}" placeholder="Salario aproximado." required="required">
+                    <input type="text" class="form-control" name="salario" id="salario" th:field="*{salario}" th:value="${vacante.salario}" oninput="validarNumerosDecimales(this)" placeholder="Salario aproximado." required="required">
                   </div>
                 </div>
                 <div class="col-md-6">
@@ -139,7 +166,7 @@
                 <div class="col-md-9"> 
                   <div class="form-group">
                     <label for="detalles"><strong>Detalles</strong></label>          
-                    <textarea class="form-control" name="detalles" id="detalles" rows="7" th:text="${vacante.detalles}"></textarea>
+                    <textarea class="form-control" name="detalles" id="detalles" rows="7" th:text="${vacante.detalles}" oninput="validarLetras(this)"></textarea>
                   </div> 
                 </div> 
                 <div class="col-md-3">

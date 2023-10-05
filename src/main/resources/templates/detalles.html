@@ -7,23 +7,12 @@
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
 
-    <title>EmpleosApp | Creación de Categorías</title>
+    <title>EmpleosApp | Detalles de la Oferta de Trabajo</title>
     <!-- Bootstrap core CSS -->
     <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
-    <link href="bootstrap/css/jumbotron.css" rel="stylesheet">
-    <link href="bootstrap/css/sticky-footer-navbar.css" rel="stylesheet">
-
-    <script>
-      function validarLetras(inputElement) {
-        var valorInput = inputElement.value;
-        var soloLetras = /^[A-Za-z]+$/;
-
-        if (!soloLetras.test(valorInput)) {
-          inputElement.value = valorInput.replace(/[^A-Za-z]+/g, '');
-        }
-      }
-    </script>
+    <link href="/bootstrap/css/jumbotron.css" rel="stylesheet">
+    <link href="/bootstrap/css/sticky-footer-navbar.css" rel="stylesheet">
   </head>
 
   <body>
@@ -53,40 +42,36 @@
       </nav>
     </header>
 
-    <main role="main">     
+    <main role="main">
       <hr>
       <div class="container" style="margin-top: 100px">
 
-        <div class="card">
-          <h4 class="card-header"><strong>Datos de la categoría</strong></h4>              
-          <div class="card-body">
-            <form th:action="@{/categorias/save}" method="post" th:object="${categoria}">
-              <!--input que contendrá el id de la categoría oculto-->
-              <input class="form-control" type="hidden" th:fiel="*{id}" th:value="${categoria.id}" name="id">
-
-              <div class="row">
-                <div class="col-md-6"> 
-                  <div class="form-group">
-                    <label for="nombre">Nombre</label>
-                    <input type="text" class="form-control" id="nombre" th:field="*{nombre}" name="nombre" oninput="validarLetras(this)" placeholder="Escriba el nombre de la categoria" required="required">
+        <div class="row">
+          <div class="col-md-3">            
+            <img class="rounded mx-auto d-block" src="/images/logo3.png" alt="Generic placeholder image" width="220" height="220">
+          </div>
+          <div class="col-md-9">
+            <div class="card">
+              <h4 class="card-header">Aplicar para <strong th:text="${vacante.nombre}"></strong></h4>
+              <div class="card-body">
+                <h5 class="card-title"><strong>Categoría: </strong> <span th:text="${vacante.categoria.nombre}"></span></h5>
+                <h6 class="card-title"><strong>Publicado: </strong> <span th:text="${vacante.fecha}"></span></h6>
+                <h6 class="card-title"><strong>Salario Ofrecido: </strong><span th:text="${vacante.salario}"></span></h6>
+                <p class="card-text" th:text="${vacante.descripcion}"></p>
+                
+                <div class="card bg-light mb-3" >
+                  <div class="card-body">
+                    <h5 class="card-title">Detalles de la oferta de trabajo</h5>
+                    <p class="card-text" th:text="${vacante.detalles}"></p>
                   </div>
-                </div>                
-              </div> 
-              <div class="row">
-                <div class="col-md-6"> 
-                  <div class="form-group">
-                    <label for="descripcion">Descripción</label>
-                    <textarea class="form-control" name="descripcion" id="descripcion" th:field="*{descripcion}" rows="2"></textarea>
-                  </div>
-                </div>                
-              </div> 
-              <hr>
-              <button type="submit" title="Guardar el registro." class="btn btn-primary">Guardar</button>  
-            </form>
+                </div>   
+                <a class="btn btn-primary" href="#" role="button" title="Quiero aplicar para esta oferta de trabajo."><i class="fas fa-file" aria-hidden="true"></i> Aplicar</a>                            
+              </div>
+            </div>  
           </div>
         </div>
-      </div> <!-- /container -->
 
+      </div>
     </main>
 
     <footer class="footer">
@@ -101,6 +86,6 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>     
+    <script src="bootstrap/js/bootstrap.min.js"></script>
   </body>
 </html>

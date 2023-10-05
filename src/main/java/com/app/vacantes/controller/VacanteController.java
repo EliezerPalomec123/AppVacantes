@@ -116,7 +116,7 @@ public class VacanteController {
         model.addAttribute("vacante",vacanteFound);
         model.addAttribute("listCategorias",listCategorias);
 
-        System.out.println("El nombre de la vacante a actualizar es: " + vacanteFound.getNombre());
+        System.out.println("El nombre de la vacantte a actualizar es: " + vacanteFound.getNombre());
         System.out.println("Su categoria es :"+vacanteFound.getCategoria().getNombre());
         System.out.println("El nombre de la imagen que estoy mandando a la vista es: "+vacanteFound.getImagen());
 

@@ -18,6 +18,7 @@ public class ImplVacanteService implements InterfaceVacanteService {
 
     @Override
     public List<VacanteModell> listAllVacantes() {
+
         return (List<VacanteModell>) vacanteRepo.findAll();
     }
 
@@ -34,5 +35,28 @@ public class ImplVacanteService implements InterfaceVacanteService {
     @Override
     public void deleteById(Integer id) {
         vacanteRepo.deleteById(id);
+    }
+
+    @Override
+    public List<VacanteModell> listVacantesFeatures() {
+        return vacanteRepo.listVacantesFeatures();
+    }
+
+    @Override
+    public List<VacanteModell> listVacantesFound(String nombre) {
+        if(nombre != null)
+            return vacanteRepo.listVacantesFound(nombre);
+        else
+            return vacanteRepo.listVacantesFeatures();
+    }
+
+    @Override
+    public List<VacanteModell> listVacantesByIdCategoria(Integer id) {
+        return vacanteRepo.listVacantesByIdCategoria(id);
+    }
+
+    @Override
+    public List<VacanteModell> listVacantesByNameAndIdCategoria(String nombre, int id) {
+        return vacanteRepo.listVacantesByNameAndIdCategoria(nombre,id);
     }
 }

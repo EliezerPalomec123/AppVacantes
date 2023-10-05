@@ -7,12 +7,12 @@
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
 
-    <title>EmpleosApp | Creación de Categorías</title>
+    <title>EmpleosApp | Formulario de Registro</title>
     <!-- Bootstrap core CSS -->
     <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
-    <link href="bootstrap/css/jumbotron.css" rel="stylesheet">
-    <link href="bootstrap/css/sticky-footer-navbar.css" rel="stylesheet">
+    <link href="/bootstrap/css/jumbotron.css" rel="stylesheet">
+    <link href="/bootstrap/css/sticky-footer-navbar.css" rel="stylesheet">
 
     <script>
       function validarLetras(inputElement) {
@@ -58,30 +58,37 @@
       <div class="container" style="margin-top: 100px">
 
         <div class="card">
-          <h4 class="card-header"><strong>Datos de la categoría</strong></h4>              
+          <h4 class="card-header"><strong>Formulario de registro</strong></h4>              
           <div class="card-body">
-            <form th:action="@{/categorias/save}" method="post" th:object="${categoria}">
-              <!--input que contendrá el id de la categoría oculto-->
-              <input class="form-control" type="hidden" th:fiel="*{id}" th:value="${categoria.id}" name="id">
-
+            <form th:action="@{/usuarios/save}" method="post" th:object="${usuario}">
               <div class="row">
-                <div class="col-md-6"> 
+                <div class="col-md-3"> 
                   <div class="form-group">
                     <label for="nombre">Nombre</label>
-                    <input type="text" class="form-control" id="nombre" th:field="*{nombre}" name="nombre" oninput="validarLetras(this)" placeholder="Escriba el nombre de la categoria" required="required">
+                    <input type="text" class="form-control" id="nombre" name="nombre" th:field="*{nombre}" th:value="${usuario.nombre}" oninput="validarLetras(this)" placeholder="Escriba su nombre completo" required="required">
                   </div>
-                </div>                
-              </div> 
-              <div class="row">
-                <div class="col-md-6"> 
+                </div>
+                <div class="col-md-3"> 
                   <div class="form-group">
-                    <label for="descripcion">Descripción</label>
-                    <textarea class="form-control" name="descripcion" id="descripcion" th:field="*{descripcion}" rows="2"></textarea>
+                    <label for="email">Correo electrónico</label>
+                    <input type="email" class="form-control" id="email" name="email" th:field="*{email}" th:value="${usuario.email}"  placeholder="Escriba su correo electrónico" required="required">
+                  </div> 
+                </div>    
+                <div class="col-md-3"> 
+                  <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" th:field="*{username}" th:value="${usuario.username}" placeholder="Escriba su nombre de usuario" required="required">
                   </div>
-                </div>                
-              </div> 
+                </div>
+                <div class="col-md-3"> 
+                  <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" th:field="*{password}" th:value="${usuario.password}" placeholder="Escriba su clave de acceso" required="required">
+                  </div>
+                </div>
+              </div>                  
               <hr>
-              <button type="submit" title="Guardar el registro." class="btn btn-primary">Guardar</button>  
+              <button type="submit" title="Quiero registrarme." class="btn btn-primary">Registrarse</button>  
             </form>
           </div>
         </div>
@@ -100,7 +107,7 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script> 
     <script src="bootstrap/js/bootstrap.min.js"></script>     
   </body>
 </html>

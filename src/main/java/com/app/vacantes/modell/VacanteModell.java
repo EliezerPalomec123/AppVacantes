@@ -1,6 +1,7 @@
 package com.app.vacantes.modell;
 
 import jakarta.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,6 +29,7 @@ public class VacanteModell {
 
     @Column(name = "nombre")
     private String nombre;
+
 
     @Column(name = "descripcion")
     private String descripcion;
